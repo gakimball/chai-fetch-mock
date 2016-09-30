@@ -1,3 +1,4 @@
+const deepEqual = require('deep-equal');
 const find = require('lodash.find');
 
 /**
@@ -42,5 +43,22 @@ module.exports = (chai, utils) => {
       `Expected route "${route}" to have been called`,
       `Expected route "${route}" to not have been called`
     );
+  });
+
+  /**
+   * Check if a call to `fetch()` to a specific route was made with specific arguments.
+   * @param {Array} args - Arguments to check.
+   * @throws {AssertionError} A route to test was not set with the `route()` function.
+   */
+  Assertion.addMethod('args', function(args) {
+    // Need a route to test
+    const route = utils.flag(this, 'fetchMock');
+    if (!route) {
+      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+    }
+
+    const lastArgs = this._obj.lastCall(route);
+
+    new Assertion(lastArgs).eql(args);
   });
 }
