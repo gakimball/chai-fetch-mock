@@ -1,6 +1,3 @@
-const deepEqual = require('deep-equal');
-const find = require('lodash.find');
-
 /**
  * Creates BDD assertions for use with Chai and fetch-mock.
  * @param {Chai} chai - Chai instance.

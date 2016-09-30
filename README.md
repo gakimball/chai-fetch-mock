@@ -4,6 +4,17 @@
 
 ## Installation
 
+This library depends on:
+
+```
+"peerDependencies": {
+  "chai": "3.x",
+  "fetch-mock": "5.1.x"
+}
+```
+
+Install those, and then install:
+
 ```bash
 npm install chai-fetch-mock
 ```
