@@ -1,5 +1,7 @@
 # chai-fetch-mock
 
+[![Travis](https://img.shields.io/travis/gakimball/chai-fetch-mock.svg?maxAge=2592000)](https://travis-ci.org/gakimball/chai-fetch-mock) [![npm](https://img.shields.io/npm/v/chai-fetch-mock.svg?maxAge=2592000)](https://www.npmjs.com/package/chai-fetch-mock)
+
 > Chai plugin for fetch-mock library
 
 A set of [Chai](http://chaijs.com/) assertions for [fetch-mock](https://github.com/wheresrhys/fetch-mock), a mocking library for `fetch()` and [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch).
