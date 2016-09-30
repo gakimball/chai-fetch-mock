@@ -84,4 +84,21 @@ module.exports = (chai, utils) => {
       lastUrl
     );
   });
+
+  /**
+   * Check if a call to `fetch()` to a specific route was made with specific options.
+   * @param {Array} opts - Options to check.
+   * @throws {AssertionError} A route to test was not set with the `route()` function.
+   */
+  Assertion.addMethod('options', function(opts) {
+    // Need a route to test
+    const route = utils.flag(this, 'fetchMock');
+    if (!route) {
+      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+    }
+
+    const lastOpts = this._obj.lastOptions(route);
+
+    new Assertion(lastOpts).eql(opts);
+  });
 }

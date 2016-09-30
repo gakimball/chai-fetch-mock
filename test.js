@@ -88,3 +88,25 @@ describe('url()', () => {
     });
   });
 });
+
+describe('options()', () => {
+  const opts = { method: 'get' };
+
+  beforeEach(fetchMock.reset);
+
+  it('passes if a route was called with options', () => {
+    return fetch('/cats', opts).then(() => {
+      expect(() => {
+        expect(fetchMock).route('/cats').to.have.been.called.with.options(opts);
+      }).to.not.throw(Error);
+    });
+  });
+
+  it('fails if a route does not have exact options', () => {
+    return fetch('/cats', opts).then(() => {
+      expect(() => {
+        expect(fetchMock).route('/cats').to.have.been.called.with.options({});
+      }).to.throw(Error);
+    });
+  });
+});
