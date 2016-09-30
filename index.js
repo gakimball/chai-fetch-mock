@@ -25,4 +25,22 @@ module.exports = (chai, utils) => {
     // Store the matcher as a flag
     utils.flag(this, 'fetchMock', str);
   });
+
+  /**
+   * Check if a route has been called at least once.
+   * @throws {AssertionError} A route to test was not set with the `route()` function.
+   */
+  Assertion.addProperty('called', function() {
+    // Need a route to test
+    const route = utils.flag(this, 'fetchMock');
+    if (!route) {
+      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+    }
+
+    this.assert(
+      this._obj.called(route) === true,
+      `Expected route "${route}" to have been called`,
+      `Expected route "${route}" to not have been called`
+    );
+  });
 }
