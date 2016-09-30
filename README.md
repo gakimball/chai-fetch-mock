@@ -45,9 +45,9 @@ describe('test', () => {
 
 ## API
 
-### route(matcher)
+### route(value)
 
-Sets up an assertion to check calls to a specific matcher. This is either the URL of the route, or the custom name of the route. Use this before any other fetch-mock assertion.
+Sets up an assertion to check calls to a matcher with the name `value`. This is either the URL of the route, or the custom name of the route. Use this before any other fetch-mock assertion.
 
 ```js
 // Default name
@@ -72,7 +72,7 @@ expect(fetchMock).route('*').to.not.have.been.called;
 
 This method can be chained to the ones below, allowing you to check if a route was called *and* if it was called with specific properties in one assertion.
 
-### args
+### args(value)
 
 Asserts that the arguments of last call to `fetch()` to a specific route deeply equal `value`.
 
@@ -82,7 +82,7 @@ getCat(1).then(() => {
 });
 ```
 
-### args
+### args(value)
 
 Asserts that the URL of last call to `fetch()` to a specific route equals `value`.
 
@@ -92,7 +92,7 @@ getDoggo(2).then(() => {
 });
 ```
 
-### options
+### options(value)
 
 Asserts that the options of last call to `fetch()` to a specific route deeply equal `value`.
 
