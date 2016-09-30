@@ -61,4 +61,27 @@ module.exports = (chai, utils) => {
 
     new Assertion(lastArgs).eql(args);
   });
+
+  /**
+   * Check if a call to `fetch()` to a specific route was made with a specific URL.
+   * @param {Array} url - URL to check.
+   * @throws {AssertionError} A route to test was not set with the `route()` function.
+   */
+  Assertion.addMethod('url', function(url) {
+    // Need a route to test
+    const route = utils.flag(this, 'fetchMock');
+    if (!route) {
+      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+    }
+
+    const lastUrl = this._obj.lastUrl(route);
+
+    this.assert(
+      lastUrl === url,
+      `Expected route "${route}" to have been called with URL ${url}`,
+      `Expected route "${route}" to not have been called with URL ${url}`,
+      url,
+      lastUrl
+    );
+  });
 }

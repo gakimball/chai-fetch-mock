@@ -6,6 +6,7 @@ before(() => {
   fetchMock
     .get('/cats', { hi: 'hi' })
     .post('/dogs', { bye: 'bye' })
+    .get(/\/unicorns\/\d+/, { okay: 'okay' }, { name: 'unicorns' });
   chai.use(chaiFetchMock);
 });
 
@@ -41,7 +42,7 @@ describe('called', () => {
   });
 });
 
-describe('args', () => {
+describe('args()', () => {
   const args = {
     method: 'post',
     body: {
@@ -63,6 +64,26 @@ describe('args', () => {
     return fetch('/dogs', Object.assign({}, args, { puppers: true })).then(() => {
       expect(() => {
         expect(fetchMock).route('/dogs').to.have.been.called.with.args(['/dogs', args]);
+      }).to.throw(Error);
+    });
+  });
+});
+
+describe('url()', () => {
+  beforeEach(fetchMock.reset);
+
+  it('passes if a route was called with a URL', () => {
+    return fetch('/unicorns/1').then(() => {
+      expect(() => {
+        expect(fetchMock).route('unicorns').to.have.been.called.with.url('/unicorns/1');
+      }).to.not.throw(Error);
+    });
+  });
+
+  it('fails if a route was not called with a URL', () => {
+    return fetch('/unicorns/1').then(() => {
+      expect(() => {
+        expect(fetchMock).route('unicorns').to.have.been.called.with.url('/unicorns/2');
       }).to.throw(Error);
     });
   });
