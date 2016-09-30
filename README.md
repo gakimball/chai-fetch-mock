@@ -2,6 +2,8 @@
 
 > Chai plugin for fetch-mock library
 
+A set of [Chai](http://chaijs.com/) assertions for [fetch-mock](https://github.com/wheresrhys/fetch-mock), a mocking library for `fetch()` and [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch).
+
 ## Installation
 
 This library depends on:
