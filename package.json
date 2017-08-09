@@ -4,7 +4,7 @@
   "description": "Chai plugin for fetch-mock library",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "xo && mocha"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,14 @@
   "devDependencies": {
     "chai": "3.x || 4.x",
     "fetch-mock": "^5.1.x",
-    "mocha": "^3.1.0"
+    "mocha": "^3.1.0",
+    "xo": "^0.18.2"
   },
   "peerDependencies": {
     "chai": "3.x || 4.x",
     "fetch-mock": "^5.1.x"
+  },
+  "xo": {
+    "space": true
   }
 }

@@ -14,7 +14,7 @@ module.exports = (chai, utils) => {
    * @throws {AssertionError} A fetch-mock object is not being examined.
    * @throws {AssertionError} The given route doesn't exist on the fetch-mock object.
    */
-  Assertion.addMethod('route', function(str) {
+  Assertion.addMethod('route', function (str) {
     // Check if the object is fetch-mock
     new Assertion(this._obj, `Expected ${this._obj} to be a fetch-mock object`).contain.keys(['fetchMock']);
 
@@ -30,11 +30,12 @@ module.exports = (chai, utils) => {
    * Check if a route has been called at least once.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addProperty('called', function() {
+  Assertion.addProperty('called', function () {
     // Need a route to test
     const route = utils.flag(this, 'fetchMock');
+
     if (!route) {
-      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
     }
 
     this.assert(
@@ -49,11 +50,12 @@ module.exports = (chai, utils) => {
    * @param {Array} args - Arguments to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('args', function(args) {
+  Assertion.addMethod('args', function (args) {
     // Need a route to test
     const route = utils.flag(this, 'fetchMock');
+
     if (!route) {
-      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
     }
 
     const lastArgs = this._obj.lastCall(route);
@@ -66,11 +68,12 @@ module.exports = (chai, utils) => {
    * @param {Array} url - URL to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('url', function(url) {
+  Assertion.addMethod('url', function (url) {
     // Need a route to test
     const route = utils.flag(this, 'fetchMock');
+
     if (!route) {
-      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
     }
 
     const lastUrl = this._obj.lastUrl(route);
@@ -89,15 +92,16 @@ module.exports = (chai, utils) => {
    * @param {Array} opts - Options to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('options', function(opts) {
+  Assertion.addMethod('options', function (opts) {
     // Need a route to test
     const route = utils.flag(this, 'fetchMock');
+
     if (!route) {
-      new AssertionError('Cannot check if a route has been called without route() in the assertion.');
+      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
     }
 
     const lastOpts = this._obj.lastOptions(route);
 
     new Assertion(lastOpts).eql(opts);
   });
-}
+};

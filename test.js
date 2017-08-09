@@ -1,3 +1,7 @@
+/* eslint-env mocha */
+/* global fetch */
+/* eslint-disable no-unused-expressions */
+
 'use strict';
 
 const chai = require('chai');
@@ -8,9 +12,9 @@ const expect = chai.expect;
 
 before(() => {
   fetchMock
-    .get('/cats', { hi: 'hi' })
-    .post('/dogs', { bye: 'bye' })
-    .get(/\/unicorns\/\d+/, { okay: 'okay' }, { name: 'unicorns' });
+    .get('/cats', {hi: 'hi'})
+    .post('/dogs', {bye: 'bye'})
+    .get(/\/unicorns\/\d+/, {okay: 'okay'}, {name: 'unicorns'});
   chai.use(chaiFetchMock);
 });
 
@@ -52,7 +56,7 @@ describe('args()', () => {
     body: {
       doggos: true
     }
-  }
+  };
 
   beforeEach(fetchMock.reset);
 
@@ -65,7 +69,7 @@ describe('args()', () => {
   });
 
   it('fails if a route does not have exact arguments', () => {
-    return fetch('/dogs', Object.assign({}, args, { puppers: true })).then(() => {
+    return fetch('/dogs', Object.assign({}, args, {puppers: true})).then(() => {
       expect(() => {
         expect(fetchMock).route('/dogs').to.have.been.called.with.args(['/dogs', args]);
       }).to.throw(Error);
@@ -94,7 +98,7 @@ describe('url()', () => {
 });
 
 describe('options()', () => {
-  const opts = { method: 'get' };
+  const opts = {method: 'get'};
 
   beforeEach(fetchMock.reset);
 
