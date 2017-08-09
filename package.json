@@ -24,12 +24,12 @@
   "devDependencies": {
     "babel-preset-latest": "^6.16.0",
     "babel-register": "^6.16.3",
-    "chai": "3.x",
-    "fetch-mock": "5.1.x",
+    "chai": "3.x || 4.x",
+    "fetch-mock": "^5.1.x",
     "mocha": "^3.1.0"
   },
   "peerDependencies": {
-    "chai": "3.x",
-    "fetch-mock": "5.1.x"
+    "chai": "3.x || 4.x",
+    "fetch-mock": "^5.1.x"
   }
 }
