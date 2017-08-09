@@ -33,5 +33,8 @@
   },
   "xo": {
     "space": true
+  },
+  "engines": {
+    "node": ">= 4"
   }
 }
