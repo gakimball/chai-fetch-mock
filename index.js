@@ -1,10 +1,12 @@
+'use strict';
+
 /**
  * Creates BDD assertions for use with Chai and fetch-mock.
  * @param {Chai} chai - Chai instance.
  * @param {Object} utils - Chai utilities.
  */
 module.exports = (chai, utils) => {
-  const { Assertion } = chai;
+  const Assertion = chai.Assertion;
 
   /**
    * Enables use of fetch-mock assertions farther down the chain.

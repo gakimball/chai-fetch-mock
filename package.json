@@ -4,7 +4,7 @@
   "description": "Chai plugin for fetch-mock library",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,6 @@
   },
   "homepage": "https://github.com/gakimball/chai-fetch-mock#readme",
   "devDependencies": {
-    "babel-preset-latest": "^6.16.0",
-    "babel-register": "^6.16.3",
     "chai": "3.x || 4.x",
     "fetch-mock": "^5.1.x",
     "mocha": "^3.1.0"

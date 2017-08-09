@@ -1,6 +1,10 @@
-import chai, { expect } from 'chai';
-import fetchMock from 'fetch-mock';
-import chaiFetchMock from './';
+'use strict';
+
+const chai = require('chai');
+const fetchMock = require('fetch-mock');
+const chaiFetchMock = require('.');
+
+const expect = chai.expect;
 
 before(() => {
   fetchMock
