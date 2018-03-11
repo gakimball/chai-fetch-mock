@@ -36,6 +36,6 @@
     "space": true
   },
   "engines": {
-    "node": ">= 4"
+    "node": ">= 7"
   }
 }
