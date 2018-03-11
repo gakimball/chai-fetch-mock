@@ -22,14 +22,15 @@
   },
   "homepage": "https://github.com/gakimball/chai-fetch-mock#readme",
   "devDependencies": {
-    "chai": "3.x || 4.x",
-    "fetch-mock": "^5.1.x",
+    "chai": "4.x",
+    "fetch-mock": "6.x",
     "mocha": "^3.1.0",
+    "node-fetch": "^2.1.1",
     "xo": "^0.18.2"
   },
   "peerDependencies": {
     "chai": "3.x || 4.x",
-    "fetch-mock": "^5.1.x"
+    "fetch-mock": "5.1.x || 6.x"
   },
   "xo": {
     "space": true

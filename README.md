@@ -13,7 +13,7 @@ This library depends on:
 ```
 "peerDependencies": {
   "chai": "3.x || 4.x",
-  "fetch-mock": "^5.1.x"
+  "fetch-mock": "5.1.x || 6.x"
 }
 ```
 
