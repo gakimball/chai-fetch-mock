@@ -17,6 +17,8 @@ This library depends on:
 }
 ```
 
+**Note:** fetch-mock 6.0 is only compatible with Node.js 7 or greater.
+
 Install those, and then install:
 
 ```bash
