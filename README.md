@@ -27,11 +27,15 @@ npm install chai-fetch-mock
 
 ## Usage
 
+**Note:** if you want to use this plugin with other Chai plugins that use a similar vocabulary—such as sinon-chai, which also has a `called` assertion—apply chai-fetch-mock _last_. chai-fetch-mock's methods will only kick in when an assertion calls the `route()` method.
+
 ```js
 import chai from 'chai';
 import chaiFetchMock from 'chai-fetch-mock';
 import fetchMock from 'fetch-mock';
 
+// Call conflicting plugins before
+// chai.use(sinonChai)
 chai.use(chaiFetchMock);
 
 describe('test', () => {

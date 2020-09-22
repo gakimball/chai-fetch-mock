@@ -9,6 +9,27 @@ module.exports = (chai, utils) => {
   const Assertion = chai.Assertion;
 
   /**
+   * Create a factory function for use with Chai's `overwriteMethod` and `overwriteProperty`
+   * functions. The plugin's assertions only kick in if the assertion started with a call to
+   * `route()`. This prevents conflicts with other Chai plugins from happening.
+   */
+  function withFlagCheck(callback) {
+    return function (_super) {
+      return function (...args) {
+        const route = utils.flag(this, 'fetchMock');
+
+        if (route) {
+          // Use a chai-fetch-mock method/property if a route has been set in the assertion chain
+          callback.call(this, route, ...args);
+        } else {
+          // Otherwise, fall back to a method/property with the same name if it exists
+          _super.call(this, ...args);
+        }
+      };
+    };
+  }
+
+  /**
    * Enables use of fetch-mock assertions farther down the chain.
    * @param {String} str - Route to examine.
    * @throws {AssertionError} A fetch-mock object is not being examined.
@@ -30,52 +51,31 @@ module.exports = (chai, utils) => {
    * Check if a route has been called at least once.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addProperty('called', function () {
-    // Need a route to test
-    const route = utils.flag(this, 'fetchMock');
-
-    if (!route) {
-      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
-    }
-
+  Assertion.overwriteProperty('called', withFlagCheck(function (route) {
     this.assert(
       this._obj.called(route) === true,
       `Expected route "${route}" to have been called`,
       `Expected route "${route}" to not have been called`
     );
-  });
+  }));
 
   /**
    * Check if a call to `fetch()` to a specific route was made with specific arguments.
    * @param {Array} args - Arguments to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('args', function (args) {
-    // Need a route to test
-    const route = utils.flag(this, 'fetchMock');
-
-    if (!route) {
-      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
-    }
-
+  Assertion.overwriteMethod('args', withFlagCheck(function (route, args) {
     const lastArgs = this._obj.lastCall(route);
 
     new Assertion(lastArgs).eql(args);
-  });
+  }));
 
   /**
    * Check if a call to `fetch()` to a specific route was made with a specific URL.
    * @param {Array} url - URL to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('url', function (url) {
-    // Need a route to test
-    const route = utils.flag(this, 'fetchMock');
-
-    if (!route) {
-      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
-    }
-
+  Assertion.overwriteMethod('url', withFlagCheck(function (route, url) {
     const lastUrl = this._obj.lastUrl(route);
 
     this.assert(
@@ -85,23 +85,16 @@ module.exports = (chai, utils) => {
       url,
       lastUrl
     );
-  });
+  }));
 
   /**
    * Check if a call to `fetch()` to a specific route was made with specific options.
    * @param {Array} opts - Options to check.
    * @throws {AssertionError} A route to test was not set with the `route()` function.
    */
-  Assertion.addMethod('options', function (opts) {
-    // Need a route to test
-    const route = utils.flag(this, 'fetchMock');
-
-    if (!route) {
-      throw new chai.AssertionError('Cannot check if a route has been called without route() in the assertion.');
-    }
-
+  Assertion.overwriteMethod('options', withFlagCheck(function (route, opts) {
     const lastOpts = this._obj.lastOptions(route);
 
     new Assertion(lastOpts).eql(opts);
-  });
+  }));
 };
